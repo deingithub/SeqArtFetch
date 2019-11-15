@@ -1,6 +1,9 @@
 # SeqArtFetch
 
+
 A near-universal webcomic/sequential art downloader. It visits each page like a human user, scraping and downloading all art images into a specified folder and by default only re-downloads new episodes.
+
+[Available on PyPi](https://pypi.org/project/SeqArtFetch/).
 
 ## Usage
 

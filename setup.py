@@ -5,7 +5,7 @@ setup(
     description="A near-universal webcomic/sequential art downloader.",
     author="deing",
     author_email="admin@15318.de",
-    version="0.2.0",
+    version="0.2.1",
     license="MIT",
     url="https://github.com/deingithub/SeqArtFetch",
     packages=["."],
@@ -13,9 +13,9 @@ setup(
     install_requires=["aiohttp", "cssselect", "lxml"],
     entry_points={"console_scripts": ["sqf=main:totally_not_main"]},
     long_description="""
-    A near-universal webcomic/sequential art downloader.
-    It visits each page like a human user, scraping and downloading all art images into a specified folder and by default only re-downloads new episodes.
+A near-universal webcomic/sequential art downloader.
+It visits each page like a human user, scraping and downloading all art images into a specified folder and by default only re-downloads new episodes.
 
-    [Details on GitHub](https://github.com/deingithub/SeqArtFetch).
+`Details and Usage on GitHub <https://github.com/deingithub/SeqArtFetch>`_
     """,
 )
