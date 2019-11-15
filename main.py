@@ -164,8 +164,12 @@ async def fetch_episodes(cfg, url, episode):
                 print(f"#{episode:05} ({url})")
 
 
-if __name__ == "__main__":
+def totally_not_main():
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
         print("\nInterrupted, exiting")
+
+
+if __name__ == "__main__":
+    totally_not_main()

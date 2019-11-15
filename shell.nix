@@ -3,7 +3,7 @@
 pkgs.mkShell {
   buildInputs = [
     (pkgs.python3.withPackages(
-      ps: with ps; [ black pylint lxml cssselect aiohttp ]
+      ps: with ps; [ black pylint lxml cssselect aiohttp setuptools ]
     )) 
   ];
 

@@ -1,2 +1,4 @@
 nix-shell-black
 nix-shell-pylint
+*.egg-info
+dist/
