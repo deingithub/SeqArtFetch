@@ -9,16 +9,22 @@ from lxml import html, etree
 
 CONFIG_PATH = f"{os.environ['HOME']}/.config/seqartfetch.ini"
 
-USAGE = """SeqArtFetch
+VERSION = "0.2.3"
+
+USAGE = f"""SeqArtFetch {VERSION}
 
 About
-  A semi-universal webcomic downloader, licensed under MIT.
+  A semi-universal webcomic/sequential art downloader, licensed under MIT.
   Brought to you by Dingenskirchen Systems.
 
 Usage
-  sqf fetch <comic>   Fetch newest episodes of existing <comic>
-  sqf init <comic>    Interactively initialize <comic>
-  sqf list            Display current configuration
+  sqf fetch <comic>         Fetch newest episodes of existing <comic>
+  sqf init <comic>          Interactively initialize <comic>
+  sqf list                  Display current configuration
+
+Links
+  GitHub (source, issues)   https://github.com/deingithub/SeqArtFetch
+  PyPi (downloads)          https://pypi.org/project/SeqArtFetch/
 """
 
 
@@ -59,7 +65,7 @@ async def do_fetch(cfg):
 
 async def do_init(cfg, comicname):
     if comicname in cfg:
-        print("Duplicate comic name {comicname}, exiting")
+        print(f"Duplicate comic name {comicname}, exiting")
         exit(1)
     print(f"Initializing {comicname}...")
     cfg[comicname] = {}
