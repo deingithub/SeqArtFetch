@@ -1,11 +1,12 @@
 from setuptools import setup, find_packages
+from main import VERSION
 
 setup(
     name="SeqArtFetch",
     description="A near-universal webcomic/sequential art downloader.",
     author="deing",
     author_email="admin@15318.de",
-    version="0.2.3",
+    version=VERSION,
     license="MIT",
     url="https://github.com/deingithub/SeqArtFetch",
     packages=["."],

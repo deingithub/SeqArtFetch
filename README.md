@@ -13,6 +13,9 @@ Initializes a new comic called `name`. The program will ask for the directory to
 **`sqf fetch <name>`**  
 Fetches the page of the last-downloaded episode and tries to find newer ones than it. Will not stop unless it hits the end, ~~horrifically crashes~~, or is interrupted with Ctrl-C.
 
+**`sqf fetchall`**  
+A shorthand for automatically running `sqf fetch` for every comic in the configuration.
+
 **`sqf list`**  
 Displays all known comics and their episode counts.
 

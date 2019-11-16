@@ -9,7 +9,7 @@ from lxml import html, etree
 
 CONFIG_PATH = f"{os.environ['HOME']}/.config/seqartfetch.ini"
 
-VERSION = "0.2.3"
+VERSION = "0.3.0"
 
 USAGE = f"""SeqArtFetch {VERSION}
 
