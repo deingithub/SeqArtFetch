@@ -121,7 +121,7 @@ async def fetch_episodes(cfg, url, episode):
                     await asyncio.sleep(0.5)
                     next
 
-                tree = html.fromstring(await response.text())
+                tree = html.fromstring(await response.text(errors="replace"))
                 image_elems = tree.cssselect(cfg["image"])
                 if len(image_elems) == 0:
                     failures.append((episode, url))
