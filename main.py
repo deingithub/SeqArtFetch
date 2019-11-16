@@ -19,6 +19,7 @@ About
 
 Usage
   sqf fetch <comic>         Fetch newest episodes of existing <comic>
+  sqf fetchall              Fetch newest episodes of all comics
   sqf init <comic>          Interactively initialize <comic>
   sqf list                  Display current configuration
 
@@ -47,6 +48,16 @@ async def main():
         else:
             print("Missing comic name, exiting")
             exit(1)
+
+    elif sys.argv[1] == "fetchall":
+        if len(cfg.sections()) == 0:
+            print("No configuration stored, exiting")
+            exit(0)
+
+        print(f"In configuration: {len(cfg.sections())} comics")
+        for sec in cfg.sections():
+            print(f"Starting {sec}...")
+            await do_fetch(cfg[sec])
 
     elif sys.argv[1] == "list":
         do_config_print(cfg)
