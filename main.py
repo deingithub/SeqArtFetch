@@ -9,7 +9,7 @@ from lxml import html, etree
 
 CONFIG_PATH = f"{os.environ['HOME']}/.config/seqartfetch.ini"
 
-VERSION = "0.3.0"
+VERSION = "0.3.1"
 
 USAGE = f"""SeqArtFetch {VERSION}
 
@@ -157,9 +157,7 @@ async def fetch_episodes(cfg, url, episode):
                         else:
                             file_name += f"{episode:05}-{index} "
 
-                        file_name += (
-                            f"{url[len(cfg['base_url']):]}.{image_url.split('.')[-1]}"
-                        )
+                        file_name += f"{url[len(cfg['base_url']):].replace('/', '')}.{image_url.split('.')[-1]}"
 
                         with open(file_name, "wb") as image_file:
                             image_file.write(binary_data)
