@@ -9,7 +9,7 @@ from lxml import html, etree
 
 CONFIG_PATH = f"{os.environ['HOME']}/.config/seqartfetch.ini"
 
-VERSION = "0.3.1"
+VERSION = "0.3.2"
 
 USAGE = f"""SeqArtFetch {VERSION}
 
@@ -142,6 +142,9 @@ async def fetch_episodes(cfg, url, episode):
 
                 for index, elem in enumerate(image_elems):
                     link = elem.attrib["src"]
+                    # workaround for tapas lazy loading images
+                    if "https://m.tapas.io" in cfg["base_url"]:
+                        link = elem.attrib["data-src"]
                     image_url = urllib.parse.urljoin(cfg["base_url"], link)
                     async with session.get(image_url, headers=headers) as image:
                         if image.status >= 400:
