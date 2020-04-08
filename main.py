@@ -9,7 +9,7 @@ from lxml import html, etree
 
 CONFIG_PATH = f"{os.environ['HOME']}/.config/seqartfetch.ini"
 
-VERSION = "0.3.2"
+VERSION = "0.3.3"
 
 USAGE = f"""SeqArtFetch {VERSION}
 
@@ -61,6 +61,9 @@ async def main():
 
     elif sys.argv[1] == "list":
         do_config_print(cfg)
+
+    elif sys.argv[1] == "complete-bash":
+        do_complete_bash(cfg)
 
     else:
         print(USAGE)
@@ -180,6 +183,31 @@ async def fetch_episodes(cfg, url, episode):
             print(f"Experienced {len(failures)} failures:")
             for episode, url in failures:
                 print(f"#{episode:05} ({url})")
+
+
+def do_complete_bash(cfg):
+    line = sys.argv[2]
+    if line.startswith("sqf fetch "):
+        if len(line.split(" ")) > 3:
+            return
+
+        offered = [
+            sec
+            for sec in cfg.sections()
+            if sec.startswith(line[len("sqf fetch") :].strip())
+        ]
+        print(" ".join(offered))
+    else:
+        if len(line.split(" ")) > 2:
+            return
+
+        commands = ["fetch", "fetchall", "init", "list"]
+        offered = [
+            command
+            for command in commands
+            if command.startswith(line[len("sqf") :].strip())
+        ]
+        print(" ".join(offered))
 
 
 def totally_not_main():
