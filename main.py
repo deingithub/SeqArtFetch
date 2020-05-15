@@ -9,7 +9,7 @@ from lxml import html, etree
 
 CONFIG_PATH = f"{os.environ['HOME']}/.config/seqartfetch.ini"
 
-VERSION = "0.3.3"
+VERSION = "0.3.4"
 
 USAGE = f"""SeqArtFetch {VERSION}
 
@@ -128,6 +128,7 @@ async def fetch_episodes(cfg, url, episode):
         while True:
             async with session.get(url, headers=headers) as response:
                 print(f"Fetching #{episode:05} @ {url}")
+                should_break = False
 
                 if response.status >= 400:
                     failures.append((episode, url))
@@ -142,6 +143,15 @@ async def fetch_episodes(cfg, url, episode):
                     print("Failure: No image found")
                     await asyncio.sleep(0.5)
                     next
+
+                if len(tree.cssselect(cfg["last_page"])) > 0:
+                    should_break = True
+
+                    if any(
+                        s.startswith(f"{episode:05}") for s in os.listdir(cfg["path"])
+                    ):
+                        print("Already downloaded last page, exiting.")
+                        break
 
                 for index, elem in enumerate(image_elems):
                     link = elem.attrib["src"]
@@ -168,15 +178,15 @@ async def fetch_episodes(cfg, url, episode):
                         with open(file_name, "wb") as image_file:
                             image_file.write(binary_data)
 
-                if len(tree.cssselect(cfg["last_page"])) > 0:
-                    print("Reached last page, exiting...")
+                if should_break:
+                    print("Reached last page, exiting.")
                     break
 
                 # we assert that a next link exists
                 next_link = tree.cssselect(cfg["next_link"])[0]
-
                 url = urllib.parse.urljoin(cfg["base_url"], next_link.attrib["href"])
                 episode += 1
+
                 await asyncio.sleep(1)
 
         if failures:
